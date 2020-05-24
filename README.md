@@ -6,7 +6,7 @@ Get Playnite at [Playnite.link](https://playnite.link/)
 [Forum Page](https://playnite.link/forum/thread-280.html)
 
 ## Features:
-- Scans library for all installed games with Installation Direcotry set up
+- Scans library for all installed games with Installation Direcotory set up
 - Calculates size of the directory
 - Saves it into the Age rating field
 - Enables sorting and filtering by size
