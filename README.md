@@ -10,7 +10,7 @@ A Game Installation Directory Size Calculator
 ## Installation:
 
 - Download the archive
-  - Latest version: https://github.com/Gerren/SizeCalculator/blob/master/SizeCalculator.zip
+  - Latest version: [SizeCalculator.zip](https://github.com/Gerren/SizeCalculator/blob/master/SizeCalculator.zip)
 - Unpack the archive into your Playinite/Expansion folder
 - Restart Playnite
 
@@ -31,3 +31,11 @@ The size is formated as "005 GB", rounded to whole number. The leading zeros are
 - Of course, if you alerady use the Age rating field, be prepared to lose it.
 - The games, that do not have the Installation direcotery set up, or it leads to error, the field is not set up.
 - Currently, the extension does not take in mind the drive the game is installed on. If have games installed on multiple drives and seek to free up space, you shall pick and choose from results.
+
+# Images:
+
+![Calculate Sizes](/Playnite_calculate.png)
+
+![Sort](/Playnite_sort.png)
+
+![Filter](/Playnite_filter.png)
