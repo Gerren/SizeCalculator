@@ -3,6 +3,8 @@ A Game Installation Directory Size Calculator for Playnite library manager.
 
 Get Playnite at [Playnite.link](https://playnite.link/)
 
+[Forum Page](https://playnite.link/forum/thread-280.html)
+
 ## Features:
 - Scans library for all installed games with Installation Direcotry set up
 - Calculates size of the directory
