@@ -5,6 +5,7 @@ A Game Installation Directory Size Calculator
 - Scans library for all installed games with Installation Direcotry set up
 - Calculates size of the directory
 - Saves it into the Age rating field
+- Enables sorting and filtering by size
 
 ## Installation:
 
@@ -21,7 +22,7 @@ The size is formated as "005 GB", rounded to whole number. The leading zeros are
 
 ## More info:
 - As of version 7.7, there is no way to find out game sizes.
-- The usual ways to find game sizes leads nowhere, because of all the libraries. The directory tree is not making it any easier.
+- The usual ways to find game sizes lead nowhere, because of all the clients and libraries. The directory tree is not making it any easier.
 - The Age rating field was used, because:
   - it was underutilized
   - IGDB does not provide this info anyway
