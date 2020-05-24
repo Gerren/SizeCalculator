@@ -31,10 +31,11 @@ The games, that do not have the Installation direcotery set up, or the calculati
 - If you use Age rating, the filter will show all the values.
 - Playnite does not exactly like having field values edited at runtime. Sometimes the values can seem to be doubled or sorted incorrectly. This corrects itself on the next Playnite session.
 - The sorting does not refresh on recalculation. Just change sorting and change it back.
+- Some libraries do import and overwrite the Age Rating field. That results in loosing the sizes after import (default on start).
 - Currently, the extension does not take in mind the drive the game is installed on. If have games installed on multiple drives and seek to free up space, you shall pick and choose from results.
 - This extension calculates all files recursively, but beware - this version does not include Image, ROM and ISO.
 - As of Playnite version 7.7, there is no posibility to filter a value out (exclude it). There is no way to select all too. Eg. the only way to filter "all but None" values, one must check all individual values, with the excepiton of None. Which can be tedious.
-
+- This extension shows "Size", not "Size on disk". These differ, when the NTFS compression is enabled.
 
 ## More info:
 - As of Playnite version 7.7, there is no way to find out game sizes.
