@@ -55,48 +55,46 @@ namespace SizeCalculator
         };
         }
 
-        //const string sUnknown = "Size N/A";
-        //const string sError = "Size Error";
         private void CalculateSizes()
         {
             NotificationMessage m = new NotificationMessage("Size Calculator start", "Calculating", NotificationType.Info);
             PlayniteApi.Notifications.Add(m);
 
+            StringBuilder b = new StringBuilder();
+            int round = 1;
+
+            b.Insert(0, "{0:")
+                .Append('0', settings.SizeDecimals);
+
+            if (settings.SizeRound > 0) {
+                b.Append('.')
+                .Append('0', settings.SizeRound);
+            }
+            else
+                round = (int)Math.Pow(10, -settings.SizeRound);
+            b.Append("} GB");
+            string format =  b.ToString();
 
 
-            Dictionary<long, AgeRating> sizes = new Dictionary<long, AgeRating>();
-            long size = 0; AgeRating rating; AgeRating unknown = null; AgeRating error = null;
+            Dictionary<string, AgeRating> sizes = new Dictionary<string, AgeRating>();
+            AgeRating rating;
             foreach (AgeRating g in PlayniteApi.Database.AgeRatings)
             {
-                //if(g.Name==sError)
-                //{
-                //    error = g;
-                //    continue;
-                //}
-                //if (g.Name == sUnknown)
-                //{
-                //    unknown = g;
-                //    continue;
-                //}
                 if (!g.Name.EndsWith("GB")) continue;
-                if (!long.TryParse(g.Name.Substring(g.Name.Length - 3), out size)) continue;
-                sizes.Add(size, g);
+                sizes.Add(g.Name, g);
             }
-
-            //if (unknown == null) unknown = PlayniteApi.Database.AgeRatings.Add(sUnknown);
-            //if (error == null) error = PlayniteApi.Database.AgeRatings.Add(sError);
 
             try
             {
                 foreach (Game g in PlayniteApi.Database.Games)
                 {
-                    Debug.Print(g.Name);
+                    //Debug.Print(g.Name);
                     if (!g.IsInstalled) continue;
                     if (g.InstallDirectory == "" ) continue;
                     try
                     {
                         rating = null;
-                        size = 0;
+                        long size = 0;
                         if (g.InstallDirectory == null)
                             //rating = unknown;
                             continue;
@@ -111,17 +109,20 @@ namespace SizeCalculator
                                 continue;
                             }
 
-                        Debug.Print(size.ToString());
+                        //Debug.Print(size.ToString());
 
                         if(rating == null)
                         {
-                            size = size / 1024 / 1024 / 1024; // B, kB, mB, GB
+                            float fsize = size / 1024F / 1024F / 1024F; // B, kB, mB, GB
 
-                            if (!sizes.TryGetValue(size,out rating))
+                            if (round > 0) fsize = (float)(Math.Round(fsize / round) * round);
+
+                            string name = String.Format(format, fsize);
+
+                            if (!sizes.TryGetValue(name,out rating))
                             {
-                                string name = String.Format("{0:000} GB", size);
                                 rating = PlayniteApi.Database.AgeRatings.Add(name);
-                                sizes.Add(size, rating);
+                                sizes.Add(name, rating);
                             }
                         }
 

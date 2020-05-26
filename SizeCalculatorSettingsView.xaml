@@ -6,9 +6,12 @@
              mc:Ignorable="d"
              d:DesignHeight="400" d:DesignWidth="600">
     <StackPanel>
-        <TextBlock Text="Description for Option1:"/>
-        <TextBox Text="{Binding Option1}"/>
-        <TextBlock Text="Description for Option2:"/>
-        <CheckBox IsChecked="{Binding Option2}"/>
+        <TextBlock Text="Size Settings:" FontWeight="Bold"/>
+        <TextBlock Text="Valid decimals:"/>
+        <TextBox Text="{Binding SizeDecimals}"/>
+        <TextBlock Text="Round:"/>
+        <TextBox Text="{Binding SizeRound}"/>
+        <TextBlock Text="Rounding works both ways: positive adds precision, negative results in coarser categories."/>
+        <TextBlock Text="Value of 0 => 016 GB; Value of 1 => 016,3 GB; Value of -1 => 20 GB"/>
     </StackPanel>
 </UserControl>
