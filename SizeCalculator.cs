@@ -126,8 +126,8 @@ namespace SizeCalculator
                         }
 
                         g.AgeRatingId = rating.Id;
-                        
 
+                        PlayniteApi.Database.Games.Update(g);
                         Debug.Print(g.Name);
                     }
                     catch { }
