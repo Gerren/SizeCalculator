@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -115,7 +116,7 @@ namespace SizeCalculator
                         {
                             float fsize = size / 1024F / 1024F / 1024F; // B, kB, mB, GB
 
-                            if (round > 0) fsize = (float)(Math.Round(fsize / round) * round);
+                            if (round > 1) fsize = (float)(Math.Round(fsize / round) * round);
 
                             string name = String.Format(format, fsize);
 
@@ -144,27 +145,52 @@ namespace SizeCalculator
         }
 
 
-        public static long DirSize(string path)
+        public long DirSize(string path)
         {
             return DirSize(new System.IO.DirectoryInfo(path));
         }
-        public static long DirSize(System.IO.DirectoryInfo d)
+        public long DirSize(System.IO.DirectoryInfo d)
         {
-            Debug.Print(d.FullName);
+            //Debug.Print(d.FullName);
             long size = 0;
             // Add file sizes.
             System.IO.FileInfo[] fis = d.GetFiles();
             foreach (System.IO.FileInfo fi in fis)
             {
-                size += fi.Length;
+                if (settings.SizeDisk)
+                    size += GetFileSizeOnDisk(fi);
+                else
+                    size += fi.Length;
             }
             // Add subdirectory sizes.
             System.IO.DirectoryInfo[] dis = d.GetDirectories();
             foreach (System.IO.DirectoryInfo di in dis)
             {
-                size += DirSize(di);
+                    size += DirSize(di);
             }
             return size;
         }
+
+        public static long GetFileSizeOnDisk(System.IO.FileInfo info)
+        {
+            uint dummy, sectorsPerCluster, bytesPerSector;
+            int result = GetDiskFreeSpaceW(info.Directory.Root.FullName, out sectorsPerCluster, out bytesPerSector, out dummy, out dummy);
+            if (result == 0) throw new System.ComponentModel.Win32Exception();
+            uint clusterSize = sectorsPerCluster * bytesPerSector;
+            uint hosize;
+            uint losize = GetCompressedFileSizeW(info.FullName, out hosize);
+            long size;
+            size = (long)hosize << 32 | losize;
+            return ((size + clusterSize - 1) / clusterSize) * clusterSize;
+        }
+
+        [DllImport("kernel32.dll")]
+        static extern uint GetCompressedFileSizeW([In, MarshalAs(UnmanagedType.LPWStr)] string lpFileName,
+           [Out, MarshalAs(UnmanagedType.U4)] out uint lpFileSizeHigh);
+
+        [System.Runtime.InteropServices.DllImport("kernel32.dll", SetLastError = true, PreserveSig = true)]
+        static extern int GetDiskFreeSpaceW([In, MarshalAs(UnmanagedType.LPWStr)] string lpRootPathName,
+           out uint lpSectorsPerCluster, out uint lpBytesPerSector, out uint lpNumberOfFreeClusters,
+           out uint lpTotalNumberOfClusters);
     }
 }

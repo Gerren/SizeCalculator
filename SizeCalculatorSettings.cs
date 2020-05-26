@@ -14,6 +14,7 @@ namespace SizeCalculator
 
         public int SizeDecimals { get; set; } = 3;
         public int SizeRound{ get; set; } = 0;
+        public bool SizeDisk{ get; set; } = false;
 
 
         // Parameterless constructor must exist if you want to use LoadPluginSettings method.
@@ -34,6 +35,7 @@ namespace SizeCalculator
             {
                 SizeDecimals = savedSettings.SizeDecimals;
                 SizeRound = savedSettings.SizeRound;
+                SizeDisk = savedSettings.SizeDisk;
             }
         }
 
