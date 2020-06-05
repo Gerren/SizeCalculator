@@ -15,5 +15,11 @@
         <TextBox Text="{Binding SizeRound}"/>
         <TextBlock Text="Rounding works both ways: positive adds precision, negative results in coarser categories."/>
         <TextBlock Text="Value of 0 => 016 GB; Value of 1 => 016,3 GB; Value of -1 => 20 GB"/>
+        <TextBlock/>
+        <TextBlock>           
+            <Hyperlink NavigateUri="https://github.com/Gerren/SizeCalculator" RequestNavigate="Hyperlink_RequestNavigate">
+                Open on GitHub
+            </Hyperlink>
+        </TextBlock>
     </StackPanel>
 </UserControl>

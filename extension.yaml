@@ -1,6 +1,6 @@
-﻿Name: Custom Library Importer
-Author: John Doe
-Version: 1.0
+﻿Name: SizeCalculator
+Author: Gerren
+Version: 1.2
 Module: SizeCalculator.dll
-Type: GameLibrary
+Type: GenericPlugin
 Icon: icon.png
