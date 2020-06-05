@@ -92,27 +92,26 @@ namespace SizeCalculator
                 int cnt = 0;
                 foreach (Game g in PlayniteApi.Database.Games)
                 {
-                    //Debug.Print(g.Name);
                     if (!g.IsInstalled) continue;
-                    if (g.InstallDirectory == "" ) continue;
                     if (!recalculate && g.AgeRating != null && g.AgeRating.Name.EndsWith("GB")) continue;
+
+                    string path = g.InstallDirectory;
+                    if (g.GameImagePath != null && g.GameImagePath != "") path = g.GameImagePath;
+
+                    if (path == null || path  == "" ) continue;
                     try
                     {
                         rating = null;
                         long size = 0;
-                        if (g.InstallDirectory == null)
-                            //rating = unknown;
+                        try
+                        {
+                            size = DirSize(path);
+                        }
+                        catch
+                        {
+                            //rating = error;
                             continue;
-                        else
-                            try
-                            {
-                                size = DirSize(g.InstallDirectory);
-                            }
-                            catch
-                            {
-                                //rating = error;
-                                continue;
-                            }
+                        }
 
                         //Debug.Print(size.ToString());
 
@@ -153,6 +152,7 @@ namespace SizeCalculator
 
         public long DirSize(string path)
         {
+            if (System.IO.File.Exists(path)) return FileSize(new System.IO.FileInfo(path));
             return DirSize(new System.IO.DirectoryInfo(path));
         }
         public long DirSize(System.IO.DirectoryInfo d)
@@ -163,10 +163,7 @@ namespace SizeCalculator
             System.IO.FileInfo[] fis = d.GetFiles();
             foreach (System.IO.FileInfo fi in fis)
             {
-                if (settings.SizeDisk)
-                    size += GetFileSizeOnDisk(fi);
-                else
-                    size += fi.Length;
+                size += FileSize(fi);
             }
             // Add subdirectory sizes.
             System.IO.DirectoryInfo[] dis = d.GetDirectories();
@@ -175,6 +172,14 @@ namespace SizeCalculator
                     size += DirSize(di);
             }
             return size;
+        }
+
+        private long FileSize(System.IO.FileInfo fi)
+        {
+            if (settings.SizeDisk)
+                return GetFileSizeOnDisk(fi);
+            else
+                return fi.Length;
         }
 
         public static long GetFileSizeOnDisk(System.IO.FileInfo info)
