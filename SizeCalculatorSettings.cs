@@ -54,6 +54,7 @@ namespace SizeCalculator
         {
             // Code executed when user decides to confirm changes made since BeginEdit was called.
             // This method should save settings made to SizeDecimals and Option2.
+            if (SizeDecimals < 1) SizeDecimals = 1;
             plugin.SavePluginSettings(this);
         }
 
