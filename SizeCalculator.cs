@@ -46,12 +46,18 @@ namespace SizeCalculator
                 "Calculate Sizes",
                 () =>
                 {
-                    CalculateSizes();
+                    CalculateSizes(false);
+                }),
+            new ExtensionFunction(   
+                "Recalculate All Sizes",
+                () =>
+                {
+                    CalculateSizes(true);
                 })
         };
         }
 
-        private void CalculateSizes()
+        private void CalculateSizes(bool recalculate)
         {
             NotificationMessage m = new NotificationMessage("Size Calculator start", "Calculating", NotificationType.Info);
             PlayniteApi.Notifications.Add(m);
@@ -83,11 +89,13 @@ namespace SizeCalculator
 
             try
             {
+                int cnt = 0;
                 foreach (Game g in PlayniteApi.Database.Games)
                 {
                     //Debug.Print(g.Name);
                     if (!g.IsInstalled) continue;
                     if (g.InstallDirectory == "" ) continue;
+                    if (!recalculate && g.AgeRating != null && g.AgeRating.Name.EndsWith("GB")) continue;
                     try
                     {
                         rating = null;
@@ -127,16 +135,18 @@ namespace SizeCalculator
 
                         PlayniteApi.Database.Games.Update(g);
                         Debug.Print(g.Name);
+                        cnt++; 
                     }
                     catch { }
-                    m = new NotificationMessage("Size Calculator ok", "Done! See Age Ranking", NotificationType.Info);
-                    PlayniteApi.Notifications.Add(m);
                 }
-            }
-            catch
+                m = new NotificationMessage("Size Calculator ok", "Done! " + cnt.ToString() +  " Games updated. See Age Ranking", NotificationType.Info);
+                PlayniteApi.Notifications.Add(m);
+            } 
+            catch(Exception ex)
             {
                 m = new NotificationMessage("Size Calculator err", "Unexpected error", NotificationType.Error);
                 PlayniteApi.Notifications.Add(m);
+                logger.Debug(ex.Message);
             }
         }
 
