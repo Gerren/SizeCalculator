@@ -28,13 +28,12 @@ The size is formatted as "005 GB", rounded to whole number, by default. The lead
 
 The games, that do not have the Installation direcotery set up, or the calculation leads to error, the field is not set up.
 
-Options are available in Settings/Libraries/Size Calculator.
+Options are available in Settings/Plugins/Size Calculator.
 
 ## Known issues:
 - The size is stored in Age rating field. If you alerady use the Age rating field, be prepared to lose it.
 - If you use Age rating, the filter will show all the values.
 - Currently, the extension does not take in mind the drive the game is installed on. If have games installed on multiple drives and seek to free up space, you shall pick and choose from results.
-- This extension calculates all files recursively, but beware - this version does not include Image, ROM and ISO.
 - As of Playnite version 7.7, there is no posibility to filter a value out (exclude it). There is no way to select all too. Eg. the only way to filter "all but None" values, one must check all individual values, with the excepiton of None. Which can be tedious.
 - Size on Disk option slows the process and can cause the Playnite to freeze for a short period. This is due to kernel32.dll calls, which are used to determine size on disk.
 
@@ -51,6 +50,10 @@ Options are available in Settings/Libraries/Size Calculator.
   - Sizes are stored in the database
   - Ability to calculate Size on Disk
   - Custom rounding
+- Version 1.2
+  - Now is a GenericPlugin (will not show amongst libraries)
+  - Ability to Calculate only games with no size calculated.
+  - Support for Emulated games.
 
 # Images:
 
