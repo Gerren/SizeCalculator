@@ -13,19 +13,13 @@ using System.Windows.Interop;
 
 namespace SizeCalculator
 {
-    public class SizeCalculator : LibraryPlugin
+    public class SizeCalculator : Plugin
     {
         private static readonly ILogger logger = LogManager.GetLogger();
 
         private SizeCalculatorSettings settings { get; set; }
 
         public override Guid Id { get; } = Guid.Parse("77e80a47-f0d8-4cf2-a889-571cd45f3169");
-
-        // Change to something more appropriate
-        public override string Name => "Size Calculator";
-
-        // Implementing Client adds ability to open it via special menu in playnite.
-        public override LibraryClient Client { get; } = new SizeCalculatorClient();
 
         public SizeCalculator(IPlayniteAPI api) : base(api)
         {
@@ -34,6 +28,7 @@ namespace SizeCalculator
 
         public override ISettings GetSettings(bool firstRunSettings)
         {
+            if(settings == null) settings = new SizeCalculatorSettings(this);
             return settings;
         }
 
@@ -67,7 +62,8 @@ namespace SizeCalculator
             b.Insert(0, "{0:")
                 .Append('0', settings.SizeDecimals);
 
-            if (settings.SizeRound > 0) {
+            if (settings.SizeRound > 0)
+            {
                 b.Append('.')
                 .Append('0', settings.SizeRound);
             }
