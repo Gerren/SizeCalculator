@@ -34,15 +34,14 @@ Options are available in Settings/Plugins/Size Calculator.
 - The size is stored in Age rating field. If you alerady use the Age rating field, be prepared to lose it.
 - If you use Age rating, the filter will show all the values.
 - Currently, the extension does not take in mind the drive the game is installed on. If have games installed on multiple drives and seek to free up space, you shall pick and choose from results.
-- As of Playnite version 7.7, there is no posibility to filter a value out (exclude it). There is no way to select all too. Eg. the only way to filter "all but None" values, one must check all individual values, with the excepiton of None. Which can be tedious.
+- As of Playnite version 8.1, there is no posibility to filter a value out (exclude it). There is no way to select all too. Eg. the only way to filter "all but None" values, one must check all individual values, with the excepiton of None. Which can be tedious.
 - Size on Disk option slows the process and can cause the Playnite to freeze for a short period. This is due to kernel32.dll calls, which are used to determine size on disk.
 
 ## More info:
-- As of Playnite version 7.7, there is no way to find out game sizes.
+- As of Playnite version 8.1, there is no way to find out game sizes.
 - The usual ways to find game sizes lead nowhere, because of all the clients and libraries. The directory tree is not making it any easier.
 - The Age rating field was used, because:
   - it was underutilized
-  - IGDB does not provide this info anyway
   - it supports fitering and sorting
   
 # Changes:
@@ -54,6 +53,8 @@ Options are available in Settings/Plugins/Size Calculator.
   - Now is a GenericPlugin (will not show amongst libraries)
   - Ability to Calculate only games with no size calculated.
   - Support for Emulated games.
+- Version 1.3
+  - Manifest compatibility with Playnite 8
 
 # Images:
 
