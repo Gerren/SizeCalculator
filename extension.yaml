@@ -1,6 +1,10 @@
-﻿Name: SizeCalculator
+﻿Id: SizeCalculator_Playinte_Plugin
+ Name: SizeCalculator
 Author: Gerren
-Version: 1.2
+Version: 1.3
 Module: SizeCalculator.dll
 Type: GenericPlugin
 Icon: icon.png
+Links:
+    - Name: GitHub
+      Url: https://github.com/Gerren/SizeCalculator
